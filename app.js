@@ -12,6 +12,12 @@ sub.addEventListener('submit',calculate1RM);
 
 //Calculate 1 RM
 function calculate1RM(e){
+    let ok = checkInputs();
+    if (!ok){
+        alert("not ok");
+        displayError();
+    }
+    else{
     outExe.innerText = "Exercise: ".concat(exe.value);
     let tempResult;
     switch (parseInt(reps.value)) {
@@ -57,6 +63,30 @@ function calculate1RM(e){
     out1RM.innerText = "1RM: ".concat(tempResult);
     out.style.display = "block";
 
+    clearInput();
+    }
+
 
 e.preventDefault();
+}
+//Clears input fields
+function clearInput(){
+    exe.value='';
+    weight.value='';
+    reps.value=1;
+}
+
+//Check inputs
+function checkInputs(){
+    if (exe.value=='' || weight.value==''){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+//create error li and add it above inputs
+function displayError(){
+    
 }
