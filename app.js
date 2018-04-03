@@ -3,6 +3,7 @@ const sub = document.getElementById('1RMform');
 const exe = document.getElementById('exercise');
 const reps = document.getElementById('reps');
 const weight = document.getElementById('weight');
+const card = document.getElementById('coreCard');
 
 const outExe = document.getElementById('outputExercise');
 const out1RM = document.getElementById('output1RM');
@@ -14,7 +15,6 @@ sub.addEventListener('submit',calculate1RM);
 function calculate1RM(e){
     let ok = checkInputs();
     if (!ok){
-        alert("not ok");
         displayError();
     }
     else{
@@ -88,5 +88,25 @@ function checkInputs(){
 
 //create error li and add it above inputs
 function displayError(){
-    
+    const errorMes = document.createElement('div');
+    const ul = document.createElement('ul');
+    const li = document.createElement('li');
+
+    errorMes.className="card";
+    errorMes.style.color = "black";
+    ul.className = "list-group list-group-flush";
+    li.className =  "list-group-item list-group-item-danger";
+    li.innerText = "Correct input error";
+    errorMes.appendChild(ul);
+    errorMes.firstChild.appendChild(li);
+
+    //console.log(errorMes);
+    card.appendChild(errorMes);
+    card.insertBefore(errorMes,sub);
+
+    // <div class="card" style="color: black;">
+    //     <ul class="list-group list-group-flush">
+    //     <li class="list-group-item list-group-item-danger" id="error">Correct input error </li>
+    // </ul>
+    // </div>
 }
