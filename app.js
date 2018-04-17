@@ -18,6 +18,7 @@ function calculate1RM(e){
         displayError();
     }
     else{
+    clearError();
     outExe.innerText = "Exercise: ".concat(exe.value);
     let tempResult;
     switch (parseInt(reps.value)) {
@@ -88,15 +89,19 @@ function checkInputs(){
 
 //create error li and add it above inputs
 function displayError(){
-    const errorMes = document.createElement('div');
-    const ul = document.createElement('ul');
-    const li = document.createElement('li');
+    //check if error is already displayed
+    if (document.querySelector('.list-group-item-danger')){
+        return 0;
+    }
+    let errorMes = document.createElement('div');
+    let ul = document.createElement('ul');
+    let li = document.createElement('li');
 
     errorMes.className="card";
     errorMes.style.color = "black";
     ul.className = "list-group list-group-flush";
     li.className =  "list-group-item list-group-item-danger";
-    li.innerText = "Correct input error";
+    li.innerText = "Please correct input error";
     errorMes.appendChild(ul);
     errorMes.firstChild.appendChild(li);
 
@@ -109,4 +114,13 @@ function displayError(){
     //     <li class="list-group-item list-group-item-danger" id="error">Correct input error </li>
     // </ul>
     // </div>
+}
+
+function clearError(){
+    let errorMess = document.querySelectorAll('.list-group-item-danger');
+    errorMess.forEach(function(err){
+        console.log(err);
+        err.remove();
+        //card.removeChild(err);
+    })
 }
