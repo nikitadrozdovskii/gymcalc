@@ -5,21 +5,39 @@ const reps = document.getElementById('reps');
 const weight = document.getElementById('weight');
 const card = document.getElementById('coreCard');
 
-const outExe = document.getElementById('outputExercise');
-const out1RM = document.getElementById('output1RM');
-const out = document.getElementById('output');
+// const outExe = document.getElementById('outputExercise');
+// const out1RM = document.getElementById('output1RM');
+// const out = document.getElementById('output');
 //Add Event Listeners
 sub.addEventListener('submit',calculate1RM);
 
 //Calculate 1 RM
 function calculate1RM(e){
+    //Validate inputs
     let ok = checkInputs();
     if (!ok){
         displayError();
     }
     else{
     clearError();
-    outExe.innerText = "Exercise: ".concat(exe.value);
+
+    let output = document.createElement('div');
+    let ul = document.createElement('ul');
+    let liName = document.createElement('li');
+    let liExe = document.createElement('li');
+    //add bootstrap classes
+    output.className='card';
+    output.style.color='black';
+    ul.className = 'list-group list-group-flush';
+    liName.className="list-group-item";
+    liExe.className="list-group-item";
+    //build output div
+    ul.appendChild(liName);
+    ul.appendChild(liExe);
+    output.appendChild(ul);
+
+
+    liName.innerText = "Exercise: ".concat(exe.value);
     let tempResult;
     switch (parseInt(reps.value)) {
         case 1:
@@ -61,8 +79,10 @@ function calculate1RM(e){
     }
     tempResult = Math.round(tempResult);
 
-    out1RM.innerText = "1RM: ".concat(tempResult);
-    out.style.display = "block";
+    liExe.innerText = "1RM: ".concat(tempResult);
+    output.style.marginBottom='10px';
+    output.style.marginTop='10px';
+    card.appendChild(output);
 
     clearInput();
     }
@@ -109,11 +129,6 @@ function displayError(){
     card.appendChild(errorMes);
     card.insertBefore(errorMes,sub);
 
-    // <div class="card" style="color: black;">
-    //     <ul class="list-group list-group-flush">
-    //     <li class="list-group-item list-group-item-danger" id="error">Correct input error </li>
-    // </ul>
-    // </div>
 }
 
 function clearError(){
@@ -121,6 +136,5 @@ function clearError(){
     errorMess.forEach(function(err){
         console.log(err);
         err.remove();
-        //card.removeChild(err);
     })
 }
